@@ -29,6 +29,7 @@ $("#add-train-btn").on("click", function(event) {
   var firstTime = moment($("#first-input").val().trim(), "hh:mm").format("X");
   var freq = $("#frequency-input").val().trim();
 
+
   // Creates local "temporary" object for holding employee data
 
   var newTrain = {
@@ -68,14 +69,18 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
 
  // Difference between the times
-    var tFrequency = freq;
+    var tFrequency = parseInt(freq);
+    console.log(tFrequency);
+
     var tfirstTime = firstTime;
+  
   
     var firstTimeConverted = moment(tfirstTime, "hh:mm").subtract(1, "years");
     console.log(firstTimeConverted);
 
+    var currentTime = moment().format("hh:mm");
 
-    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    var diffTime = moment().diff(moment(firstTimeConverted), "mm");
     console.log("DIFFERENCE IN TIME: " + diffTime);
     // Time apart (remainder)
     var tRemainder = diffTime % tFrequency;
